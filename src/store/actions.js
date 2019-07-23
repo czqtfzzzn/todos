@@ -6,34 +6,17 @@ import {
 } from './mutation-types'
 
 export default {
-	addItem({commit, state}, item) {
-		const newList = state.list
-		newList.push(item)
-		commit(ADD_ITEM, {newList})
+	addItem({ commit, state }, item) {
+		commit(ADD_ITEM, { newList: [...state.list, item] })
 	},
-	
-	selectAll({commit, state}, allCheck) {
-		const newList = state.list
-		if(allCheck) {
-			for(let item of newList) {
-				item.complete = false
-			}
-		}else {
-			for(let item of newList) {
-				item.complete = true
-			}
-		}
-		commit(SELECT_All, {newList})
+
+	selectAll({ commit, state }, isCheck) {
+		commit(SELECT_All, { newList: state.list.map(item => ({ ...item, complete: isCheck })) })
 	},
-	
-	deleteComplete({commit, state}) {
-		const newList = []
-		for(let item of state.list) {
-			if(!item.complete) {
-				newList.push(item)
-			}
-		}
-		commit(DELETE_COMPLETE, {newList})
+
+	deleteComplete({ commit, state }) {
+
+		commit(DELETE_COMPLETE, { newList: state.list.filter(item => !item.complete) })
 	},
-	
+
 }

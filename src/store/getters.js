@@ -8,12 +8,6 @@ export default {
 		}
 		return num
 	},
-	// unSelected: state => {
-	// 	return state.list.map(item => ({...item,complete:false}))
-	// },
-	// selected: state => {
- //      return state.list.map(item => ({...item, complete: true}))
- //    }
 	
 	allComplete (state) {
 		if (state.list) {

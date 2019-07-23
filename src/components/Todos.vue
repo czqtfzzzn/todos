@@ -5,7 +5,7 @@
 		</div>
 		<div class="content">
 			<div class="content-head">
-				<el-checkbox v-model="allComplete" @click.native="selectAll"></el-checkbox>
+				<el-checkbox :value="allComplete" @change="selectAll"></el-checkbox>
 				<el-input v-model="inputValue" placeholder="请输入内容" @keydown.enter.native="addItem"></el-input>
 			</div>
 			<div class="list">
@@ -36,11 +36,12 @@
 			return {
 				msg: 'Welcome to Your Vue.js App',
 				inputValue: '',
+				allComplete: false,
 			}
 		},
 		computed:{
 			...mapState(['list']),
-			...mapGetters(['num', 'allComplete'])
+			...mapGetters(['num'])
 			
 		},
 		methods:{
@@ -56,8 +57,8 @@
 			},
 			
 			selectAll() {
-				var allCheck = this.$store.getters.allComplete
-				this.$store.dispatch('selectAll', allCheck)
+				this.$store.dispatch('selectAll', !this.allComplete)
+				this.allComplete = !this.allComplete
 			},
 			
 			deleteComplete() {
